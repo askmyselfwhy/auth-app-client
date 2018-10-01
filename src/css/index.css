@@ -1,0 +1,126 @@
+input::selection, textarea::selection {
+  background-color: #62ba98;
+  color: #ffffff;
+}
+
+::placeholder {
+  color: #f2f2f2 !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #2a5245;
+  font-family: "Roboto", sans-serif;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100vh;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100vh;
+  background-color: #fff;
+}
+.profile .profile-container {
+  padding: 2em;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+[class*=MuiAvatar-root] {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.form-container {
+  padding: 1.5em;
+  max-width: 300px;
+}
+.form-container form button[type=submit] {
+  background-color: #62ba98 !important;
+  color: #ffffff !important;
+}
+.form-container form [class*=MuiInput-underline]:before {
+  border-color: #ffffff !important;
+}
+.form-container form [class*=MuiInput-underline]:after {
+  border-color: #62ba98 !important;
+}
+.form-container form input {
+  padding-left: 10px;
+  background-color: transparent;
+}
+.form-container form svg {
+  color: #ffffff !important;
+}
+
+.tab-bar {
+  background-color: #333333 !important;
+}
+
+.form-card {
+  background-color: #212121 !important;
+}
+
+.tab-content input {
+  color: #ffffff !important;
+}
+
+[class*=TabIndicator-colorSecondary] {
+  background-color: #62ba98 !important;
+}
+
+.btn-logout {
+  background-color: #c72039 !important;
+  color: #ffffff !important;
+}
+
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+.custom-input:-webkit-autofill,
+.custom-input:-webkit-autofill:hover,
+.custom-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px #212121 inset;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.logs {
+  padding: 10px;
+}
+
+.invalid-feedback {
+  background-color: #c72039;
+}
+
+.valid-feedback {
+  background-color: #62ba98;
+}
+
+.invalid-feedback, .valid-feedback {
+  color: #ffffff;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+/*# sourceMappingURL=index.css.map */
