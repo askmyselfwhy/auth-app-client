@@ -1,19 +1,19 @@
 import { userConstants } from './../_constants';
 
 const authActions = {
-  request: () => ({
+  authRequest: () => ({
     type: userConstants.LOGIN_REQUEST,
   }),
-  error: () => ({
+  authError: () => ({
     type: userConstants.LOGIN_FAILURE,
   }),
-  success: (data) => ({
+  authSuccess: (data) => ({
     type: userConstants.LOGIN_SUCCESS,
     payload: {
       ...data
     }
   }),
-  logout: () => ({
+  authLogout: () => ({
     type: userConstants.LOGOUT
   })
 }

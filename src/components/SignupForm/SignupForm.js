@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class SignupForm extends Component {
 	render() {
@@ -13,17 +14,16 @@ class SignupForm extends Component {
 			values,
 			touched,
 			errors,
-			dirty,
-			isSubmitting,
 			handleChange,
 			setFieldValue,
-			handleBlur,
 			handleSubmit,
 			handleReset,
+			isRegistering
 		} = this.props;
 		return (
 			<div className="form-container" justify="center">
 				<form autoComplete="off" onSubmit={handleSubmit}>
+					{isRegistering && <CircularProgress />}
 					<Grid container spacing={24}>
 						<Grid item xs={12} md={12}>
 							<Input
@@ -31,7 +31,6 @@ class SignupForm extends Component {
 								placeholder="First name"
 								type="text"
 								onChange={handleChange}
-								onBlur={handleBlur}
 								value={values.first_name}
 								fullWidth
 								inputProps={{
@@ -47,7 +46,6 @@ class SignupForm extends Component {
 								placeholder="Last name"
 								type="text"
 								onChange={handleChange}
-								onBlur={handleBlur}
 								value={values.last_name}
 								fullWidth
 								inputProps={{
@@ -63,7 +61,6 @@ class SignupForm extends Component {
 								placeholder="Email"
 								type="email"
 								onChange={handleChange}
-								onBlur={handleBlur}
 								value={values.email}
 								fullWidth
 								inputProps={{
@@ -84,7 +81,6 @@ class SignupForm extends Component {
 								placeholder="Password"
 								type="password"
 								onChange={handleChange}
-								onBlur={handleBlur}
 								value={values.password1}
 								fullWidth
 								inputProps={{
@@ -105,7 +101,6 @@ class SignupForm extends Component {
 								placeholder="Repeat password"
 								type="password"
 								onChange={handleChange}
-								onBlur={handleBlur}
 								value={values.password2}
 								fullWidth
 								inputProps={{

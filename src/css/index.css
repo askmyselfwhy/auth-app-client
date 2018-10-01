@@ -1,12 +1,3 @@
-input::selection, textarea::selection {
-  background-color: #62ba98;
-  color: #ffffff;
-}
-
-::placeholder {
-  color: #f2f2f2 !important;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -51,8 +42,7 @@ body {
 }
 
 .form-container {
-  padding: 1.5em;
-  max-width: 300px;
+  padding: 0 1.5em 1.5em 1.5em;
 }
 .form-container form button[type=submit] {
   background-color: #62ba98 !important;
@@ -78,6 +68,7 @@ body {
 
 .form-card {
   background-color: #212121 !important;
+  max-width: 350px !important;
 }
 
 .tab-content input {
@@ -102,6 +93,15 @@ select:-webkit-autofill:focus,
 .custom-input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 50px #212121 inset;
   -webkit-text-fill-color: #ffffff;
+}
+
+input::selection, textarea::selection {
+  background-color: #62ba98;
+  color: #ffffff;
+}
+
+::placeholder {
+  color: #f2f2f2 !important;
 }
 
 .logs {

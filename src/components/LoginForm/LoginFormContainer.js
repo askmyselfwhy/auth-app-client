@@ -1,32 +1,30 @@
-import LoginForm from './LoginForm'
-import { authActions, alertActions } from '../../_actions';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { withRouter } from "react-router-dom";
 // Form handling and validation
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { messagesConstants } from '../../_constants';
+import LoginForm from './LoginForm'
+import { authActions, alertActions } from '../../_actions';
+import { userService } from './../../_services';
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  isLogging: state.auth.isLogging,
   user: {
     email: '',
     password: ''
   }
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  successAlert: (message) => dispatch(alertActions.success(message)),
-  errorAlert: (message) => dispatch(alertActions.error(message)),
-  clearAlerts: () => dispatch(alertActions.clear()),
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    ...alertActions,
+    ...authActions
+  }, dispatch)
 
-  loginRequest: () => dispatch(authActions.request()),
-  loginError: () => dispatch(authActions.error()),
-  loginSuccess: (data) => dispatch(authActions.success(data))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withFormik({
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withFormik({
   mapPropsToValues: (props) => {
     return {
       email: props.user.email,
@@ -35,28 +33,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(withFormik({
   },
 
   validationSchema: Yup.object().shape({
-    email: Yup.string().email('Invalid email address').required('Email is required!'),
-    password: Yup.string().required('Password is required!'),
+    email: Yup.string().trim().lowercase().email('Invalid email address').required('Email is required!'),
+    password: Yup.string().trim().required('Password is required!'),
   }),
 
   handleSubmit: (values, { props, setSubmitting }) => {
-    props.loginRequest();
-    fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(values)
-    }).then(response => {
-      if (response.status === 404) {
-        props.errorAlert(messagesConstants.WRONG_CREDENTIALS)
-        props.loginError();
-      } else if (response.status === 200) {
-        response.json()
-          .then(data => props.loginSuccess(data))
-      }
-    }
-    );
+    props.alertClear();
+    props.authRequest();
+    userService.login(values.email, values.password)
+      .then(user => {
+        props.authSuccess(user)
+        props.history.push('/profile')
+      })
+      .catch(err => {
+        console.log(err)
+        props.alertError(err);
+        props.authError();
+      });
+
   },
-})(LoginForm));
+})(LoginForm)));

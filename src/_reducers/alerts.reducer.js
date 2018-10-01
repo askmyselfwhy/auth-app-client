@@ -3,12 +3,14 @@ import { alertConstants } from './../_constants/';
 function alerts(state = {}, action) {
 	switch (action.type) {
 		case alertConstants.SUCCESS:
+			return {
+				type: 'valid-feedback',
+				message: action.message
+			}
 		case alertConstants.ERROR:
 			return {
-				...state,
-				[action.payload.id]: {
-					...action.payload
-				}
+				type: 'invalid-feedback',
+				message: action.message
 			}
 		case alertConstants.CLEAR:
 			return {};

@@ -1,17 +1,14 @@
 import { userConstants } from './../_constants';
 
 const registerActions = {
-  request: () => ({
+  registerRequest: () => ({
     type: userConstants.REGISTER_REQUEST,
   }),
-  error: () => ({
+  registerError: () => ({
     type: userConstants.REGISTER_FAILURE,
   }),
-  success: (data) => ({
+  registerSuccess: (data) => ({
     type: userConstants.REGISTER_SUCCESS,
-    payload: {
-      ...data
-    }
   })
 }
 export default registerActions;

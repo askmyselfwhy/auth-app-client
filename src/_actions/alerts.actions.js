@@ -1,21 +1,15 @@
 import { alertConstants } from './../_constants';
 
 const alertActions = {
-  success: (messageConstant) => ({
+  alertSuccess: (message) => ({
     type: alertConstants.SUCCESS,
-    payload: {
-      ...messageConstant,
-      className: 'log-success'
-    }
+    message
   }),
-  error: (messageConstant) => ({
+  alertError: (message) => ({
     type: alertConstants.ERROR,
-    payload: {
-      ...messageConstant,
-      className: 'log-error'
-    }
+    message
   }),
-  clear: () => ({
+  alertClear: () => ({
     type: alertConstants.CLEAR,
   })
 }

@@ -1,22 +1,13 @@
-$clrBg: rgb(198, 40, 40)
-// rgb(199, 0, 57)
+$clrBg: #2a5245
 $clrForm: rgba(33,33,33, 1)
 $clrValid: rgb(98, 186, 152)
 $clrInvalid: rgb(199, 32, 57)
-$clrBtn: $clrValid
-$clrText: rgba(0,0,0,.87)
 
-input::selection, textarea::selection
-  background-color: $clrValid
-  color: #ffffff
-
-::placeholder
-  color: darken(#ffffff, 5%) !important
 body
   margin: 0
   padding: 0
   // background: url(../resources/images/bg_lg.jpg)
-  background: #2a5245
+  background: $clrBg
   font-family: 'Roboto', sans-serif
   background-repeat: no-repeat
   background-size: cover
@@ -53,11 +44,10 @@ body
   height: 150px !important
 
 .form-container
-  padding: 1.5em
-  max-width: 300px
+  padding: 0 1.5em 1.5em 1.5em
   form
     button[type="submit"]
-      background-color: $clrBtn !important
+      background-color: $clrValid !important
       color: #ffffff !important
     [class*="MuiInput-underline"]:before
       border-color: #ffffff !important
@@ -75,6 +65,7 @@ body
 
 .form-card
   background-color: $clrForm !important
+  max-width: 350px !important
 
 .tab-content
   input
@@ -102,6 +93,12 @@ select:-webkit-autofill:focus,
   -webkit-box-shadow: 0 0 0 50px rgb(33,33,33) inset
   -webkit-text-fill-color: #ffffff
 
+input::selection, textarea::selection
+  background-color: $clrValid
+  color: #ffffff
+
+::placeholder
+  color: darken(#ffffff, 5%) !important
 
 .logs
   padding: 10px

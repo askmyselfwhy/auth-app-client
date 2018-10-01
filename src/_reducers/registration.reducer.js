@@ -3,7 +3,9 @@ import { userConstants } from './../_constants/';
 function registration(state = {}, action) {
 	switch (userConstants) {
 		case userConstants.REGISTER_REQUEST:
-			return {};
+			return {
+				isRegistering: true
+			};
 		case userConstants.REGISTER_SUCCESS:
 			return {};
 		case userConstants.REGISTER_FAILURE:

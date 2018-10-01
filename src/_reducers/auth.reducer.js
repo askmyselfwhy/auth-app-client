@@ -1,35 +1,25 @@
 import { userConstants } from '../_constants/index.js';
 import { storageActions } from './../_helpers';
 
-let initialState = {
-	isLogging: false,
-	isLogged: false
-}
+let user = storageActions.getFromStorage();
+const initialState = user ? { isLogged: true, user } : {};
 function auth(state = initialState, action) {
 	switch (action.type) {
 		case userConstants.LOGIN_REQUEST:
 			return {
 				isLogging: true,
-				isLogged: false
 			};
 		case userConstants.LOGIN_SUCCESS:
 			storageActions.saveToStorage(action.payload);
 			return {
-				isLogging: false,
 				isLogged: true,
 				user: action.payload
 			};
 		case userConstants.LOGIN_FAILURE:
-			return {
-				isLogging: false,
-				isLogged: false,
-			};
+			return {};
 		case userConstants.LOGOUT:
 			storageActions.removeFromStorage()
-			return {
-				isLogging: false,
-				isLogged: false,
-			};
+			return {};
 		default:
 			return state;
 	}
