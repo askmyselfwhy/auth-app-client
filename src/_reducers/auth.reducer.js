@@ -3,6 +3,7 @@ import { storageActions } from './../_helpers';
 
 let user = storageActions.getFromStorage();
 const initialState = user ? { isLogged: true, user } : {};
+
 function auth(state = initialState, action) {
 	switch (action.type) {
 		case userConstants.LOGIN_REQUEST:

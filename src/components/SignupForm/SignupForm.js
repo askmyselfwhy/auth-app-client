@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import LockIcon from '@material-ui/icons/Lock';
-import EmailIcon from '@material-ui/icons/Email';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import LockIcon from '@material-ui/icons/Lock';
+import EmailIcon from '@material-ui/icons/Email';
 
 class SignupForm extends Component {
 	render() {
@@ -15,9 +16,7 @@ class SignupForm extends Component {
 			touched,
 			errors,
 			handleChange,
-			setFieldValue,
 			handleSubmit,
-			handleReset,
 			isRegistering
 		} = this.props;
 		return (
@@ -25,7 +24,7 @@ class SignupForm extends Component {
 				<form autoComplete="off" onSubmit={handleSubmit}>
 					{isRegistering && <CircularProgress />}
 					<Grid container spacing={24}>
-						<Grid item xs={12} md={12}>
+						<Grid item xs={6} md={6}>
 							<Input
 								name="first_name"
 								placeholder="First name"
@@ -40,7 +39,7 @@ class SignupForm extends Component {
 							/>
 							{errors.first_name && touched.first_name && <div className="invalid-feedback">{errors.first_name}</div>}
 						</Grid>
-						<Grid item xs={12} md={12}>
+						<Grid item xs={6} md={6}>
 							<Input
 								name="last_name"
 								placeholder="Last name"
@@ -95,7 +94,7 @@ class SignupForm extends Component {
 							/>
 							{errors.password1 && touched.password1 && <div className="invalid-feedback">{errors.password1}</div>}
 						</Grid>
-						<Grid item xs={12} md={12}>
+						<Grid item xs={12} md={12} lg={12}>
 							<Input
 								name="password2"
 								placeholder="Repeat password"
@@ -114,6 +113,21 @@ class SignupForm extends Component {
 								}
 							/>
 							{errors.password2 && touched.password2 && <div className="invalid-feedback">{errors.password2}</div>}
+						</Grid>
+						<Grid item xs={12} md={12}>
+							<Input
+								name="about"
+								placeholder="Tell us about yourself"
+								type="text"
+								onChange={handleChange}
+								value={values.about}
+								fullWidth
+								multiline
+								inputProps={{
+									autoComplete: 'off',
+									className: 'custom-input'
+								}}
+							/>
 						</Grid>
 						<Grid item xs={12} md={12}>
 							<Button

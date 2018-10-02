@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 
-import Profile from './Pages/Profile';
-import Home from './Pages/Home';
+import ProfilePage from './Pages/Profile';
+import HomePage from './Pages/Home';
+import ErrorPage from './Pages/ErrorPage';
 import { PrivateRoute } from './components/PrivateRoute';
 
-import { Route } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 
 class App extends Component {
 	render() {
 		return (
-			<div>
-				<Route exact path='/' component={Home} />
-				<PrivateRoute path="/profile" component={Profile} />
-				<Route render={() => <div>Error Page</div>} />
-			</div>
+			<Switch>
+				<Route exact path='/' component={HomePage} />
+				<Route exact path='/login' render={() => <Redirect to="/" />} />
+				<PrivateRoute path="/profile" component={ProfilePage} />
+				<Route component={ErrorPage} />
+			</Switch>
 		);
 	}
 }

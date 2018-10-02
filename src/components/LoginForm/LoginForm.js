@@ -10,74 +10,74 @@ import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
 
 const LoginForm = (props) => {
-    const {
-        values,
-        touched,
-        errors,
-        handleChange,
-        handleSubmit,
-        isLogging
-    } = props;
-    return (
-        <div className="form-container">
-            <form autoComplete="new-password" onSubmit={handleSubmit}>
-                {isLogging && <CircularProgress />}
-                <Grid container spacing={24}>
-                    <Grid item xs={12} md={12}>
-                        <Input
-                            name="email"
-                            placeholder="Email"
-                            margin="dense"
-                            type="email"
-                            value={values.email}
-                            onChange={handleChange}
-                            fullWidth
-                            inputProps={{
-                                autoComplete: 'new-password',
-                                className: 'custom-input'
-                            }}
-                            startAdornment={
-                                <InputAdornment position="start">
-                                    <EmailIcon />
-                                </InputAdornment>
-                            }
-                        />
-                        {errors.email && touched.email && <div className="invalid-feedback">{errors.email}</div>}
-                    </Grid>
-                    <Grid item xs={12} md={12}>
-                        <Input
-                            name="password"
-                            placeholder="Password"
-                            margin="dense"
-                            type="password"
-                            value={values.password}
-                            onChange={handleChange}
-                            fullWidth
-                            inputProps={{
-                                autoComplete: 'new-password',
-                                className: 'custom-input'
-                            }}
-                            startAdornment={
-                                <InputAdornment position="start">
-                                    <LockIcon />
-                                </InputAdornment>
-                            }
-                        />
-                        {errors.password && touched.password &&
-                            <div className="invalid-feedback">{errors.password}</div>
-                        }
-                    </Grid>
-                    <Grid item xs={12} md={12} >
-                        <Button
-                            type="submit"
-                            fullWidth>
-                            Sign in
+	const {
+		values,
+		touched,
+		errors,
+		handleChange,
+		handleSubmit,
+		isLogging
+	} = props;
+	return (
+		<div className="form-container">
+			<form autoComplete="new-password" onSubmit={handleSubmit}>
+				{isLogging && <CircularProgress />}
+				<Grid container spacing={24}>
+					<Grid item xs={12} md={12}>
+						<Input
+							name="email"
+							placeholder="Email"
+							margin="dense"
+							type="email"
+							value={values.email}
+							onChange={handleChange}
+							fullWidth
+							inputProps={{
+								autoComplete: 'new-password',
+								className: 'custom-input'
+							}}
+							startAdornment={
+								<InputAdornment position="start">
+									<EmailIcon />
+								</InputAdornment>
+							}
+						/>
+						{errors.email && touched.email && <div className="invalid-feedback">{errors.email}</div>}
+					</Grid>
+					<Grid item xs={12} md={12}>
+						<Input
+							name="password"
+							placeholder="Password"
+							margin="dense"
+							type="password"
+							value={values.password}
+							onChange={handleChange}
+							fullWidth
+							inputProps={{
+								autoComplete: 'new-password',
+								className: 'custom-input'
+							}}
+							startAdornment={
+								<InputAdornment position="start">
+									<LockIcon />
+								</InputAdornment>
+							}
+						/>
+						{errors.password && touched.password &&
+							<div className="invalid-feedback">{errors.password}</div>
+						}
+					</Grid>
+					<Grid item xs={12} md={12} >
+						<Button
+							type="submit"
+							fullWidth>
+							Sign in
 						</Button>
-                    </Grid>
-                </Grid>
-            </form>
-        </div>
-    );
+					</Grid>
+				</Grid>
+			</form>
+		</div>
+	);
 }
 
 export default LoginForm;

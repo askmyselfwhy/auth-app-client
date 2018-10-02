@@ -37,7 +37,7 @@ class Home extends Component {
     const { value } = this.state;
     const { isLogged } = this.props;
     return (
-      <div className="container">
+      <div className="home-page">
         {isLogged ?
           <Redirect to="/profile" />
           :

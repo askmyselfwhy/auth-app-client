@@ -5,14 +5,13 @@ class Feedback extends Component {
 	render() {
 		let { alert } = this.props;
 		return (
-			<div className="logs">
+			<div className="feedback">
 				<p className={alert.type}
 					key={alert.type}
 					dangerouslySetInnerHTML={{ __html: alert.message }}>
 				</p>
 			</div>
 		)
-
 	}
 }
 const mapStateToProps = (state) => ({

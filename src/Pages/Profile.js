@@ -1,143 +1,104 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Input from '@material-ui/core/Input';
-import TextField from '@material-ui/core/TextField';
-
-import Avatar from '@material-ui/core/Avatar';
+import Modal from '@material-ui/core/Modal';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { Redirect } from 'react-router';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withStyles } from '@material-ui/core/styles';
-import { authActions } from './../_actions/';
+import { authActions, alertActions } from './../_actions/';
 import { userService } from './../_services';
-
-const styles = theme => ({
-	button: {
-		margin: theme.spacing.unit,
-	},
-	input: {
-		display: 'none',
-	},
-});
-
+import Feedback from './../components/Feedback';
 
 class Profile extends Component {
 	state = {
 		userData: null,
-		isEditable: false
+		isOpen: false
 	}
+	// Get user data
 	componentWillMount() {
 		let { user } = this.props;
 		if (user)
 			userService.getById(user.id)
 				.then(user => this.setState({ userData: user }))
-				.catch(err => console.log(err));
+				.catch(err => this.props.alertError(err.message));
 	}
-	toggleEdit = () => {
-		this.setState((state, cprops) => {
-			return {
-				isEditable: !state.isEditable
-			}
+	// Handling the deletion of account
+	handleDeleting = () => {
+		this.toggleModal();
+		userService.delete(this.props.user.id)
+			.then(data => this.props.authLogout())
+			.catch(err => this.props.alertError(err.message))
+	}
+	toggleModal = () => {
+		this.setState({
+			isOpen: !this.state.isOpen
 		})
-	}
-	handleLogout() {
-		this.props.authLogout();
 	}
 	render() {
 		let { user } = this.props;
-		let { userData, isEditable } = this.state;
-		const { classes } = this.props;
-		console.log(this.props)
+		let { userData } = this.state;
 		return (
-			<div className="profile">
-				<h2>It's your profile page</h2>
+			<div className="profile-page">
+				<Feedback></Feedback>
+				<Modal
+					aria-labelledby="simple-modal-title"
+					aria-describedby="simple-modal-description"
+					open={this.state.isOpen}
+					onClose={this.toggleModal}
+				>
+					<Paper className="modal">
+						<Typography variant="title" id="modal-title">
+							Do you really want to delete your account?
+            </Typography>
+						<Typography variant="subheading" id="simple-modal-description">
+							<Button
+								onClick={this.handleDeleting}
+								color="primary"
+								variant="contained">
+								Yes
+							</Button>
+							<Button
+								onClick={this.toggleModal}
+								color="secondary"
+								variant="contained">
+								No
+							</Button>
+						</Typography>
+					</Paper>
+				</Modal>
 				{user ?
-					(userData ?
-						<React.Fragment >
-							<div className="profile-container">
-								<div className="row">
-									<Avatar src={userData.imgURL}>
-										{userData.first_name[0] + userData.last_name[0]}
-									</Avatar>
-								</div>
-								{isEditable ?
-									<React.Fragment>
-										<input
-											accept="image/*"
-											className={classes.input}
-											id="contained-button-file"
-											multiple
-											type="file"
-										/>
-										<label htmlFor="contained-button-file">
-											<Button variant="contained" component="span" className={classes.button}>
-												Change profile photo
-									</Button>
-										</label>
-									</React.Fragment>
-									:
-									''
-								}
-								{isEditable ?
-									<Grid container justify="center" spacing={24}>
-										<Grid item md={6}>
-											<TextField
-												label="Enter your first name"
-												placeholder="First name"
-												margin="normal"
-												defaultValue={userData.first_name}
-												fullWidth
-												required
-											/>
-										</Grid>
-										<Grid item md={6}>
-											<TextField
-												label="Enter your last name"
-												placeholder="Last name"
-												margin="normal"
-												defaultValue={userData.last_name}
-												fullWidth
-												required
-											/>
-										</Grid>
-										<Grid item md={12} sm={12} lg={12}>
-											<TextField
-												label="Write information about yourself"
-												placeholder="Last name"
-												margin="normal"
-												defaultValue={userData.about}
-												fullWidth
-												multiline
-											/>
-										</Grid>
-									</Grid>
-									:
-									<React.Fragment>
-										<h1>{userData.first_name + ' ' + userData.last_name}</h1>
-										<p>{userData.about}</p>
-									</React.Fragment>
-								}
-								<Button onClick={this.toggleEdit}>
-									Edit
-								</Button>
-								<Button
-									onClick={this.handleLogout.bind(this)}
-									className="btn-logout">
-									Logout
-								</Button>
-							</div>
-						</React.Fragment>
-						:
-						<div>Waiting for loading your information...</div>
-					)
+					<Card className="profile-container">
+						<nav>
+							<Button
+								color="primary"
+								variant="contained"
+								onClick={this.props.authLogout}>Logout
+							</Button>
+							<Button
+								color="secondary"
+								variant="contained"
+								onClick={this.toggleModal}>
+								<DeleteIcon />
+								Delete
+							</Button>
+						</nav>
+						{userData ?
+							<React.Fragment >
+								<h1>{userData.first_name + " " + userData.last_name}</h1>
+								<p><span className="info-field">Your access token</span>: <span className="token">{user.token}</span></p>
+								<p><span className="info-field">Your email</span>: {userData.email}</p>
+								<p><span className="info-field">Information about you</span>: {userData.about}</p>
+							</React.Fragment>
+							:
+							<p>Waiting for loading your information...</p>
+						}
+					</Card>
 					:
 					<Redirect to="/" />
 				}
@@ -150,9 +111,9 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-		...authActions
+		...authActions,
+		...alertActions
 	}, dispatch)
 }
 export default
-	connect(mapStateToProps, mapDispatchToProps)
-		(withStyles(styles)(Profile));
+	connect(mapStateToProps, mapDispatchToProps)(Profile);

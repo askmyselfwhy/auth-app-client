@@ -2,82 +2,119 @@ $clrBg: #2a5245
 $clrForm: rgba(33,33,33, 1)
 $clrValid: rgb(98, 186, 152)
 $clrInvalid: rgb(199, 32, 57)
+$clrText: #ffffff
 
 body
   margin: 0
   padding: 0
-  // background: url(../resources/images/bg_lg.jpg)
   background: $clrBg
   font-family: 'Roboto', sans-serif
-  background-repeat: no-repeat
-  background-size: cover
 
-
-#root
-  min-height: 100vh
-
-.container
+.home-page
   display: flex
   align-items: center
   justify-content: center
   flex: 1
   height: 100vh
+.modal
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  padding: 2em
 
-.profile
+.hidden
+  display: none
+
+.profile-page
   display: flex
   flex-direction: column
   align-items: center
   flex: 1
-  height: 100vh
-  background-color: #fff
+  padding: 2em
 
   .profile-container
-    padding: 2em
+    padding: 1.5em
+    background-color: $clrForm
+    color: $clrText
+
+    .info-field
+      font-weight: bold
+      color: $clrValid
+    nav
+      display: flex
+      justify-content: flex-end
+      button
+        margin-left: 10px
+    h1
+      text-align: center
+    .token
+      display: flex
+      max-width: 400px
+      overflow-x: scroll
+
+.error-page
+  height: 100vh
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  background-color: $clrForm
+  color: $clrText
+  h1, h2
+    margin: 0
 
 .row
   display: flex
   justify-content: center
 
-
-[class*="MuiAvatar-root"]
-  width: 150px !important
-  height: 150px !important
-
 .form-container
   padding: 0 1.5em 1.5em 1.5em
+  text-align: center
   form
     button[type="submit"]
       background-color: $clrValid !important
-      color: #ffffff !important
+      color: $clrText !important
     [class*="MuiInput-underline"]:before
-      border-color: #ffffff !important
+      border-color: $clrText !important
     [class*="MuiInput-underline"]:after
       border-color: $clrValid !important
     input
       padding-left: 10px
       background-color: transparent
+      color: $clrText !important
+    textarea
+      color: $clrText !important
     svg
-      color: #ffffff !important
+      color: $clrText !important
 
 
 .tab-bar
-  background-color: #333333 !important
+  background-color: lighten($clrForm, 7%) !important
 
 .form-card
   background-color: $clrForm !important
   max-width: 350px !important
 
-.tab-content
-  input
-    color: #ffffff !important
-
 [class*="TabIndicator-colorSecondary"]
   background-color: $clrValid !important
 
-.btn-logout
-  background-color: $clrInvalid !important
-  color: #ffffff !important
 
+//
+.feedback
+  padding: 10px
+.invalid-feedback
+  background-color: $clrInvalid
+.valid-feedback
+  background-color: $clrValid
+.invalid-feedback, .valid-feedback
+  color: #ffffff
+  padding: 10px
+  margin-top: 10px
+  border-radius: 2px
+
+
+// Changing the default behavior
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus
@@ -100,17 +137,6 @@ input::selection, textarea::selection
 ::placeholder
   color: darken(#ffffff, 5%) !important
 
-.logs
-  padding: 10px
-.invalid-feedback
-  background-color: $clrInvalid
-.valid-feedback
-  background-color: $clrValid
-.invalid-feedback, .valid-feedback
-  color: #ffffff
-  padding: 10px
-  margin-top: 10px
-  border-radius: 2px
 
 
 

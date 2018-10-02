@@ -1,12 +1,11 @@
-import SignupForm from './SignupForm';
-
-import { alertActions, registerActions } from '../../_actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // Form handling and validation
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
+import SignupForm from './SignupForm';
+import { alertActions, registerActions } from '../../_actions';
 import { userService } from './../../_services';
 
 // State
@@ -17,11 +16,11 @@ const mapStateToProps = (state) => ({
     password1: '',
     password2: '',
     first_name: '',
-    last_name: ''
+    last_name: '',
+    about: ''
   }
 })
-
-// Dispatch the actions
+// Dispatchers
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     ...alertActions,
@@ -41,16 +40,16 @@ Yup.addMethod(Yup.mixed, 'sameAs', function (ref, message) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(withFormik({
   mapPropsToValues: (props) => {
-    console.log(props);
     return {
       email: props.user.email,
       password1: props.user.password1,
       password2: props.user.password2,
       first_name: props.user.first_name,
       last_name: props.user.last_name,
+      about: props.user.about
     }
   },
-
+  // Define the validation schema for inputs
   validationSchema: Yup.object().shape({
     email: Yup.string().trim().lowercase()
       .email('Invalid email address').required('Email is required!'),
@@ -64,8 +63,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(withFormik({
       .required('First name is required!'),
     last_name: Yup.string().trim()
       .required('Last name is required!'),
+    about: Yup.string().trim()
   }),
-
   // Submitting the form
   handleSubmit: (values, { props, setSubmitting, resetForm }) => {
     props.alertClear();
